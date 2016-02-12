@@ -65,7 +65,7 @@
       "ignore": true
     },
     "showdown": {
-      "main": "compressed/showdown.js"
+      "main": "compressed/Showdown.js"
     }
   },
   "resolutions": {

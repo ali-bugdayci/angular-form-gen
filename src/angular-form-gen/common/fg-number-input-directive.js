@@ -37,7 +37,7 @@ fg.directive('fgInputNumber', function() {
       });
 
       ctrl.$formatters.push(function(value) {
-        return ctrl.$isEmpty(value) ? undefined : value;
+        return ctrl.$isEmpty(value) ? undefined : value.toString();
       });
 
       if (attr.min) {

@@ -11,7 +11,7 @@
                ng-model="field.value" 
                ng-minlength="{{ field.validation.minlength }}"
                ng-maxlength="{{ field.validation.maxlength }}"
-               ng-pattern="/{{ field.validation.pattern }}/"/>
+               ng-pattern="{{ field.validation.pattern }}"/>
       </div>
 
       The fg-field-redraw directive will trigger, on model change, the field-value to re-render itself.

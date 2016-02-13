@@ -898,7 +898,7 @@ app.factory('formData', function () {
             "displayName": "Pattern",
             "validation": {
               "messages": {},
-              "pattern": "^test 123$"
+              "pattern": "/^test 123$/"
             },
             "placeholder": "Should match \"test 123\""
           },

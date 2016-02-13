@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for angular-form-gen/angular-form-gen.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">angular-form-gen/</a> angular-form-gen.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.03% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>49/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">64.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>18/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.89% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.03% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>49/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1264×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1264×</span>
+<span class="cline-any cline-yes">791×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1264×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">4680×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">1560×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-yes">390×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-yes">390×</span>
+<span class="cline-any cline-yes">1170×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var fg = angular.module('fg', ['dq']);
+&nbsp;
+/**
+ * Constructor for form-gen Field types.
+ * @param {string} type         Indicates the type of field
+ * @param {object} properties   [optional] Initial property values
+ */
+fg.constant('FgField', function FgField(type, properties) {
+    this.name = this.type = type;
+&nbsp;
+    if (properties) {
+      angular.extend(this, properties);
+    }
+&nbsp;
+    this.displayName = this.displayName || this.type.charAt(0).toUpperCase() + this.type.substring(1);
+  }
+);
+&nbsp;
+fg.config(function ($provide) {
+&nbsp;
+  $provide.provider('fgConfig', function () {
+&nbsp;
+    var config = {
+      enableDebugInfo: true,
+      validation: {
+        messages: {},
+        patterns: {}
+      },
+      fields: {
+        templates: [],
+        categories: {},
+        renderInfo: {}
+      }
+    };
+&nbsp;
+    var templates = config.fields.templates;
+&nbsp;
+    function indexOfTemplate(type) {
+      var idx = templates.length;
+&nbsp;
+      while (idx--) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (templates[idx].type === type) {
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        }
+      }
+&nbsp;
+      return idx;
+    }
+&nbsp;
+    return {
+      debug: <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >        config.enableDebugInfo = value;</span>
+      },
+      fields: {
+        add: function (objectTemplate, categories, templateUrl, propertiesTemplateUrl) {
+&nbsp;
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (!objectTemplate || !objectTemplate.type || !categories || !categories.length) {
+<span class="cstat-no" title="statement not covered" >            throw new Error('Need a valid objectTemplate and at least one category');</span>
+          }
+&nbsp;
+          var idx = indexOfTemplate(objectTemplate.type);
+&nbsp;
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (idx !== -1) {
+<span class="cstat-no" title="statement not covered" >            templates[idx] = objectTemplate;</span>
+          } else {
+            templates.push(objectTemplate);
+          }
+&nbsp;
+          this.category(objectTemplate.type, categories);
+          this.renderInfo(objectTemplate.type, templateUrl, propertiesTemplateUrl);
+        },
+        remove: <span class="fstat-no" title="function not covered" >function (type) {</span>
+<span class="cstat-no" title="statement not covered" >          var idx = indexOfTemplate(type);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          if (idx !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >            templates.splice(idx, 1);</span>
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          this.category(type);</span>
+<span class="cstat-no" title="statement not covered" >          this.renderInfo(type);</span>
+        },
+        get: function(type) {
+          var i = templates.length;
+          while(i--) {
+            var t = templates[i];
+            if(t.type === type) {
+              return t;
+            }
+          }
+        },
+        renderInfo: function (fieldType, templateUrl, propertiesTemplateUrl) {
+          config.fields.renderInfo[fieldType] = {
+            templateUrl: templateUrl,
+            propertiesTemplateUrl: propertiesTemplateUrl
+          };
+        },
+        category: function (fieldType, categories) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (!angular.isArray(categories)) {
+            categories = [categories];
+          }
+&nbsp;
+          angular.forEach(config.fields.categories, function (category) {
+            delete category[fieldType];
+          });
+&nbsp;
+          angular.forEach(categories, function (category) {
+            if (config.fields.categories[category] === undefined) {
+              config.fields.categories[category] = {};
+            }
+&nbsp;
+            config.fields.categories[category][fieldType] = true;
+          });
+        }
+      },
+      validation: {
+        message: function (typeOrObject, message) {
+&nbsp;
+          var messages = config.validation.messages;
+&nbsp;
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (angular.isString(typeOrObject)) {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!message) {</span>
+<span class="cstat-no" title="statement not covered" >              throw new Error('No message specified for ' + typeOrObject);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            messages[typeOrObject] = message;</span>
+          } else {
+            angular.extend(messages, typeOrObject);
+          }
+        },
+        pattern: function (nameOrObject, pattern) {
+&nbsp;
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (angular.isString(nameOrObject)) {
+<span class="cstat-no" title="statement not covered" >            config.validation.patterns[nameOrObject] = pattern;</span>
+          } else {
+            angular.extend(config.validation.patterns, nameOrObject);
+          }
+        }
+      },
+      $get: function () {
+        return config;
+      }
+    };
+  });
+&nbsp;
+});
+&nbsp;
+fg.config(function (fgConfigProvider, FgField) {
+&nbsp;
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Messages
+  // - - - - - - - - - - - - - - - - - - - - - -
+&nbsp;
+  fgConfigProvider.validation.message({
+    required: 'A value is required for this field.',
+    minlength: 'The value does not match the minimum length{{ field.schema &amp;&amp; (" of " + field.schema.validation.minlength + " characters" || "")}}.',
+    maxlength: 'The value exceeds the maximum length{{ field.schema &amp;&amp; (" of " + field.schema.validation.maxlength + " characters" || "")}}.',
+    pattern: 'The value "{{ field.state.$viewValue }}" does not match the required format.',
+    email: 'The value "{{ field.state.$viewValue }}" is not a valid email address.',
+    unique: 'The value "{{ field.state.$viewValue }}" is already in use.',
+    number: 'The value "{{ field.state.$viewValue }}" is not a number.',
+    min: 'The value {{ field.schema &amp;&amp; ("should be at least " + field.schema.validation.min) || field.state.$viewValue + " is too low" }}',
+    max: 'The value {{ field.schema &amp;&amp; ("should be less than " + field.schema.validation.max) || field.state.$viewValue + " is too high" }}',
+    minoptions: 'At least {{ field.schema.validation.minoptions }} option(s) should be selected.',
+    maxoptions: 'No more than {{ field.schema.validation.maxoptions }} option(s) should be selected.'
+  });
+&nbsp;
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Fields
+  // - - - - - - - - - - - - - - - - - - - - - -
+&nbsp;
+  var categories = {
+    'Text input fields': [
+      new FgField('text', {
+        displayName: 'Textbox'
+      }),
+      new FgField('email'),
+      new FgField('number', {
+        validation: { maxlength: 15 /* to prevent &gt; Number.MAX_VALUE */ }
+      }),
+      new FgField('password'),
+      new FgField('textarea')
+    ],
+    'Checkbox fields': [
+      new FgField('checkbox', { nolabel: true }),
+      new FgField('checkboxlist', {
+        displayName: 'Checkbox List',
+        options: [
+          {
+            value: '1',
+            text: 'Option 1'
+          },
+          {
+            value: '2',
+            text: 'Option 2'
+          },
+          {
+            value: '3',
+            text: 'Option 3'
+          }
+        ],
+        value: {
+          '1': true,
+          '2': true
+        }
+      })
+    ],
+    'Select input fields': [
+      new FgField('radiobuttonlist', {
+        displayName: 'Radiobutton List',
+        options: [
+          {
+            value: '1',
+            text: 'Option 1'
+          },
+          {
+            value: '2',
+            text: 'Option 2'
+          },
+          {
+            value: '3',
+            text: 'Option 3'
+          }
+        ],
+        value: '1'
+      }),
+      new FgField('selectlist', {
+        displayName: 'Select List',
+        options: [
+          {
+            value: '',
+            text: 'Select an option'
+          },
+          {
+            value: '1',
+            text: 'Option 1'
+          },
+          {
+            value: '2',
+            text: 'Option 2'
+          },
+          {
+            value: '3',
+            text: 'Option 3'
+          }
+        ],
+        value: ''
+      }) // ,
+      // new FgField('dropdownlist', {
+      //   options: [{
+      //     value: '1',
+      //     text: 'Option 1'
+      //   }, {
+      //     value: '2',
+      //     text: 'Option 2'
+      //   }, {
+      //     value: '3',
+      //     text: 'Option 3'
+      //   }],
+      //   value: '1'
+      // })
+    ]
+  };
+&nbsp;
+&nbsp;
+  angular.forEach(categories, function (fields, category) {
+    angular.forEach(fields, function (field) {
+      fgConfigProvider.fields.add(field, category /*, templateUrl, propertiesTemplateUrl */);
+    });
+  });
+&nbsp;
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Patterns
+  // - - - - - - - - - - - - - - - - - - - - - -
+&nbsp;
+  fgConfigProvider.validation.pattern({
+    'None': undefined,
+    'Url': '/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/',
+    'Domain': '/^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$/',
+    'IPv4 Address': '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
+    'Email Address': '/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/',
+    'Integer': '/^-{0,1}\\d+$/',
+    'Positive Integers': '/^\\d+$/',
+    'Negative Integers': '/^-\\d+$/',
+    'Number': '/^-{0,1}\\d*\\.{0,1}\\d+$/',
+    'Positive Number': '/^\\d*\\.{0,1}\\d+$/',
+    'Negative Number': '/^-\\d*\\.{0,1}\\d+$/',
+    'Year (1920-2099)': '/^(19|20)[\\d]{2,2}$/',
+    'Password': '/(?=.*\\d)(?=.*[!@#$%^&amp;*\\-=()|?.\"\';:]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$/'
+  });
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 01:02:21 GMT+0200 (EET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

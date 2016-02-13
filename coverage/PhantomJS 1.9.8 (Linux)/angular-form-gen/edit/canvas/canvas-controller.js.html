@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for angular-form-gen/edit/canvas/canvas-controller.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">angular-form-gen/edit/canvas/</a> canvas-controller.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">29.03% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">29.03% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">fg.controller('fgEditCanvasController', function ($scope, dqUtils, $timeout, fgUtils) {
+&nbsp;
+  $scope.dragPlaceholder = {
+    visible: false,
+    index: 0
+  };
+&nbsp;
+  // - - - 8-&lt; - - - - - - - - - - - - - - - - - - - - -
+  // Drag &amp; drop
+  // - - - 8-&lt; - - - - - - - - - - - - - - - - - - - - -
+&nbsp;
+  $scope.$on('dqDragBegin', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    $scope.dragging = true;</span>
+  });
+&nbsp;
+  $scope.$on('dqDragEnd', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    $scope.dragging = false;</span>
+  });
+&nbsp;
+  this.dragEnter = <span class="fstat-no" title="function not covered" >function () {</span>
+//    $scope.dragging = true;
+<span class="cstat-no" title="statement not covered" >    $scope.dragPlaceholder.visible = true;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.dragPlaceholder.index = $scope.schema.fields.length;</span>
+  };
+&nbsp;
+  this.dragLeave = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >    $scope.dragPlaceholder.visible = false;</span>
+  };
+&nbsp;
+  this.dragBeginCanvasField = <span class="fstat-no" title="function not covered" >function (index, field) {</span>
+&nbsp;
+    // Delay is set to prevent browser from copying adjusted html as copy image
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      field.$_isDragging = true;</span>
+    }, 1);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return { source: 'canvas', field: field, index: index };</span>
+  };
+&nbsp;
+  this.dragEndCanvasField = <span class="fstat-no" title="function not covered" >function (field) {</span>
+&nbsp;
+    // IE Fix: ensure this is fired after the drag begin
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      field.$_isDragging = false;</span>
+//      $scope.dragging = false;
+    }, 10);
+&nbsp;
+  };
+&nbsp;
+  this.drop = <span class="fstat-no" title="function not covered" >function () {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var dragData = dqUtils.dragData();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (dragData &amp;&amp; dragData.data) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var field = dragData.data.field;</span>
+<span class="cstat-no" title="statement not covered" >      var source = dragData.data.source;</span>
+<span class="cstat-no" title="statement not covered" >      var index = dragData.data.index;</span>
+<span class="cstat-no" title="statement not covered" >      var fields = $scope.schema.fields;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (source == 'palette') {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.schemaCtrl.addField(field, $scope.dragPlaceholder.index);</span>
+&nbsp;
+      } else <span class="cstat-no" title="statement not covered" >if (source == 'canvas') {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.schemaCtrl.moveField(index, $scope.dragPlaceholder.index);</span>
+&nbsp;
+        // fields.splice(index, 1);
+        // fields.splice($scope.dragPlaceholder.index, 0, field);
+      }
+&nbsp;
+      // IE fix: not calling dragEnd sometimes
+<span class="cstat-no" title="statement not covered" >      field.$_isDragging = false;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      throw Error('Drop without data');</span>
+    }
+  };
+&nbsp;
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 01:02:21 GMT+0200 (EET)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -37,13 +37,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/angular-form-gen/**/*[!test].js' : 'coverage'
     },
 
+    coverageReporter: {
+      reporters: [
+        {type : 'html', dir : 'coverage/' },
+        {type : 'text-summary'}
+      ]
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['dots', 'growl'],
+    reporters: ['dots', 'coverage', 'growl'],
 
 
     // web server port
@@ -70,6 +77,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };

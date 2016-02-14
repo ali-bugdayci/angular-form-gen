@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="MainCtrl">
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ pageState.description }}">
+  <meta name="keywords" content="{{ pageState.keywords }}">
+  <link rel="shortcut icon" href="app/assets/favicon.ico">
+
+  <title ng-bind="pageState.title"><%- pkg.name %></title>
+
+  <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/angular-inform/dist/angular-inform.min.css">
+  <link rel="stylesheet" href="vendor/angular-block-ui/dist/angular-block-ui.min.css">
+
+  <link rel="stylesheet" href="dest/angular-form-gen/angular-form-gen.css">
+  <link rel="stylesheet" href="dest/angular-logo/angular-logo.css">
+  <link rel="stylesheet" href="dest/app/app.css">
+
+  <!--[if lt IE 9]>
+  <script src="vendor/html5shiv/dist/html5shiv.min.js"></script>
+  <script src="vendor/respond/dest/respond.min.js"></script>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+<header>
+  <div inform class="inform-fixed inform-shadow inform-animate"></div>
+  <div app-navbar items="menuItems"></div>
+</header>
+
+<section ng-view></section>
+
+  <script src="vendor/showdown/compressed/Showdown.js"></script>
+  <script src="vendor/angular/angular.js"></script>
+  <script src="vendor/angular-animate/angular-animate.min.js"></script>
+  <script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="vendor/angular-route/angular-route.min.js"></script>
+  <script src="vendor/angular-inform/dist/angular-inform.min.js"></script>
+  <script src="vendor/angular-block-ui/dist/angular-block-ui.min.js"></script>
+  <script src="vendor/angular-markdown-text/dist/angular-markdown-text.min.js"></script>
+
+
+<script src="angular-form-gen/drag/angular-drag-queen.js"></script>
+<script src="angular-form-gen/drag/dq-drag-track.js"></script>
+<script src="angular-form-gen/drag/dq-drag-area.js"></script>
+<script src="angular-form-gen/drag/dq-draggable.js"></script>
+
+
+<script src="angular-form-gen/angular-form-gen.js"></script>
+<script src="angular-form-gen/angular-form-gen-templates.js"></script>
+
+<script src="angular-form-gen/common/fg-placeholder-directive.js"></script>
+<script src="angular-form-gen/common/tabs/tabs-directive.js"></script>
+<script src="angular-form-gen/common/tabs/tabs-controller.js"></script>
+<script src="angular-form-gen/common/tabs/tabs-pane-directive.js"></script>
+<script src="angular-form-gen/common/fg-utils.js"></script>
+<script src="angular-form-gen/common/fg-null-form.js"></script>
+<script src="angular-form-gen/common/bind-expression.js"></script>
+<script src="angular-form-gen/common/fg-number-input-directive.js"></script>
+<script src="angular-form-gen/common/jsonify/jsonify.js"></script>
+<script src="angular-form-gen/common/fg-dropdown-input-directive.js"></script>
+<script src="angular-form-gen/edit/edit-controller.js"></script>
+<script src="angular-form-gen/edit/edit-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/canvas-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/canvas-controller.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/property-field/field-value-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/property-field/common-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/property-field/property-field-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/validation/parse-pattern-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/validation/validation-message-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/validation/validation-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/properties-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/options/options-directive.js"></script>
+<script src="angular-form-gen/edit/canvas/field/properties/options/options-controller.js"></script>
+<script src="angular-form-gen/edit/canvas/field/field-directive.js"></script>
+<script src="angular-form-gen/edit/palette/palette-controller.js"></script>
+<script src="angular-form-gen/edit/palette/categories/categories-directive.js"></script>
+<script src="angular-form-gen/edit/palette/categories/categories-controller.js"></script>
+<script src="angular-form-gen/edit/palette/palette-directive.js"></script>
+<script src="angular-form-gen/form/form-directive.js"></script>
+<script src="angular-form-gen/form/form-fields/form-fields-directive.js"></script>
+<script src="angular-form-gen/form/field/field-input-directive.js"></script>
+<script src="angular-form-gen/form/field/field-focus-directive.js"></script>
+<script src="angular-form-gen/form/field/field-directive.js"></script>
+<script src="angular-form-gen/form/field/field-controller.js"></script>
+<script src="angular-form-gen/form/form-controller.js"></script>
+<script src="angular-form-gen/form/schema/schema-controller.js"></script>
+<script src="angular-form-gen/form/schema/schema-directive.js"></script>
+<script src="angular-form-gen/validation/summary-directive.js"></script>
+<script src="angular-form-gen/validation/unique-field-name.js"></script>
+<script src="angular-form-gen/field-templates/default/checkboxlist-directive.js"></script>
+<script src="angular-form-gen/field-templates/default/selectlist-directive.js"></script>
+
+
+<script src="angular-logo/angular-logo.js"></script>
+<script src="angular-logo/angular-logo-templates.js"></script>
+
+<script src="github-logo/github-logo.js"></script>
+
+
+<script src="angular-seo/angular-seo.js"></script>
+<script src="angular-seo/angular-seo-templates.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/core/utils.js"></script>
+<script src="app/core/routing.js"></script>
+<script src="app/core/menu-items.js"></script>
+<script src="app/core/navbar/navbar.js"></script>
+<script src="app/app-templates.js"></script>
+<script src="app/home/home.js"></script>
+<script src="app/demo/edit/edit.js"></script>
+<script src="app/demo/table-button.js"></script>
+<script src="app/demo/data/data-resource.js"></script>
+<script src="app/demo/data/edit/data-edit.js"></script>
+<script src="app/demo/data/form-resource.js"></script>
+<script src="app/demo/data/data-list.js"></script>
+<script src="app/demo/form-meta-info.js"></script>
+<script src="app/demo/form-list-ctrl.js"></script>
+<script src="app/demo/routing.js"></script>
+<script src="app/demo/form-breadcrumb.js"></script>
+
+</body>
+</html>

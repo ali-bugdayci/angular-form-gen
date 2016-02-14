@@ -1,8 +1,11 @@
 fg.filter('j$on',function () {
   return function (input, displayHidden) {
 
+  /*
+   TODO: Fix the exception: TypeError: Converting circular structure to JSON
     if(displayHidden)
       return JSON.stringify(input || {}, null, '  ');
+  */
 
     return angular.toJson(input || {}, true);
   };

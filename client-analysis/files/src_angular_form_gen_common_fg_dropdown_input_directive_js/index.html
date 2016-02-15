@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src/angular-form-gen/common/fg-dropdown-input-directive.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src/angular-form-gen/common/fg-dropdown-input-directive.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">69.11</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">173</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">22.03</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.12</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">fg.directive(&#039;fgDropdownInput&#039;, function ($compile, $document, $timeout, $parse, fgUtils) {
+
+  function createInput($scope, $element, $attrs) {
+
+    var template = &#039;&lt;div class=&quot;fg-dropdown-input input-group&quot;&gt;&#039; +
+      &#039;&lt;input type=&quot;text&quot; class=&quot;form-control&quot;/&gt;&#039; +
+      &#039;&lt;span class=&quot;input-group-btn&quot;&gt;&#039; +
+      &#039;&lt;button class=&quot;btn btn-default&quot; type=&quot;button&quot; ng-click=&quot;dropdownToggle()&quot;&gt;&#039; +
+      &#039;&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;&#039; +
+      &#039;&lt;/button&gt;&#039; +
+      &#039;&lt;/span&gt;&#039; +
+      &#039;&lt;/div&gt;&#039;;
+
+    var $template = angular.element(template);
+    var $input = $template.find(&#039;input&#039;);
+
+    // Copy the original attributes to the input element
+
+    var attributes = $element.prop(&quot;attributes&quot;);
+
+    angular.forEach(attributes, function (a) {
+      if (a.name !== &#039;fg-dropdown-input&#039; &amp;&amp; a.name !== &#039;class&#039;) {
+        $input.attr(a.name, a.value);
+      }
+    });
+
+    var $button = $template.find(&#039;button&#039;);
+    var closeTimeout;
+
+    $scope.dropdownToggle = function () {
+//      $button[0].focus(); // force focus for chrome
+      $scope.dropdownVisible = !$scope.dropdownVisible;
+    };
+
+//    $button.on(&#039;blur&#039;, function () {
+//      closeTimeout = $timeout(function () {
+//        $scope.dropdownVisible = false;
+//      }, 100);
+//    });
+
+    $scope.$on(&#039;$destroy&#039;, function () {
+      if (closeTimeout) $timeout.cancel(closeTimeout);
+      closeTimeout = undefined;
+    });
+
+    return $template;
+  }
+
+  function createDropdown($scope, $element, $attrs, ngModelCtrl, $input) {
+
+    var modelGetter = $parse($attrs.ngModel);
+    var modelSetter = modelGetter.assign;
+
+    var template = &#039;&lt;div class=&quot;fg-dropdown&quot; ng-class=&quot;{ \&#039;open\&#039;: dropdownVisible }&quot;&gt;&#039; +
+      &#039;&lt;ul ng-if=&quot;items &amp;&amp; items.length&quot; class=&quot;dropdown-menu&quot;&gt;&#039; +
+      &#039;&lt;li ng-repeat=&quot;item in items&quot; ng-class=&quot;{ active: item.value === getModelValue() }&quot;&gt;&#039; +
+      &#039;&lt;a href=&quot;&quot; ng-click=&quot;setModelValue(item.value)&quot;&gt;{{ item.text || item.value }}&lt;/a&gt;&#039; +
+      &#039;&lt;/li&gt;&#039; +
+      &#039;&lt;/ul&gt;&#039; +
+      &#039;&lt;/div&gt;&#039;;
+
+    var $template = angular.element(template);
+
+    $scope.setModelValue = function (value) {
+
+      $scope.dropdownVisible = false;
+
+      // Convert to a string
+
+      var viewValue = value || &#039;&#039;;
+
+      var idx = ngModelCtrl.$formatters.length;
+
+      while (idx--) {
+        var fn = ngModelCtrl.$formatters[idx];
+        var viewValue = fn(viewValue);
+
+        if (viewValue === undefined) {
+          break;
+        }
+      }
+
+
+      // Parse the viewValue
+
+      idx = ngModelCtrl.$parsers.length;
+      var pv = viewValue;
+
+      while (idx--) {
+        var fn = ngModelCtrl.$parsers[idx];
+        pv = fn(pv);
+
+        if (pv === undefined) {
+          break;
+        }
+      }
+
+      if (pv === undefined) {
+        // Failed to parse.
+        // Set the formatted string in the input, which will retrigger the parsing and display the correct error message.
+
+        ngModelCtrl.$setViewValue(viewValue);
+        ngModelCtrl.$render();
+
+      } else {
+        modelSetter($scope, value);
+      }
+    };
+
+    $scope.getModelValue = function () {
+      return modelGetter($scope);
+    };
+
+    var input = $input[0];
+
+    $scope.$watch(&#039;dropdownVisible&#039;, function (value) {
+      if (value) {
+
+        var rect = input.getBoundingClientRect();
+        var scroll = fgUtils.getScrollOffset();
+
+        $template.css({
+          left: (scroll.x + rect.left) + &#039;px&#039;,
+          top: (scroll.y + rect.top + input.clientHeight) + &#039;px&#039;,
+          width: input.clientWidth + &#039;px&#039;
+        });
+      }
+    });
+
+    $scope.$watchCollection($attrs.fgDropdownInput, function (value) {
+      $scope.items = value;
+    });
+
+    $scope.$on(&#039;$destroy&#039;, function () {
+      $template.remove();
+    });
+
+    return $template;
+  }
+
+  return {
+    priority: 1000,
+    restrict: &#039;A&#039;,
+    terminal: true,
+    scope: true,
+    compile: function (tElement, tAttrs) {
+
+      return function link($scope, $element, $attrs, ctrls) {
+
+        var $input = createInput($scope, $element, $attrs);
+
+        $element.append($input);
+        $compile($input)($scope);
+
+        var $inputText = $input.find(&#039;input&#039;);
+        var ngModelCtrl = $inputText.controller(&#039;ngModel&#039;);
+
+        ////////////////////////////////////////
+
+        var $dropdown = createDropdown($scope, $element, $attrs, ngModelCtrl, $input);
+        var dropdownCompileFn = $compile($dropdown);
+
+        var $body = $document.find(&#039;body&#039;);
+
+        $body.append($dropdown);
+
+        dropdownCompileFn($scope);
+
+        ////////////////////////////////////////
+      };
+    }
+  };
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

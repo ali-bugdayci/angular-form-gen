@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src/angular-form-gen/drag/dq-drag-track.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src/angular-form-gen/drag/dq-drag-track.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">74.19</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">181</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">29.25</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.84</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">angular.module(&#039;dq&#039;).directive(&#039;dqDragEnter&#039;,function (dqDragTrack) {
+  return {
+    link: dqDragTrack
+  };
+}).directive(&#039;dqDragLeave&#039;,function (dqDragTrack) {
+    return {
+      link: dqDragTrack
+    };
+  }).directive(&#039;dqDragOver&#039;,function (dqDragTrack) {
+    return {
+      link: dqDragTrack
+    };
+  }).directive(&#039;dqDrop&#039;,function (dqDragTrack) {
+    return {
+      link: dqDragTrack
+    };
+  }).factory(&#039;dqDragTrack&#039;, function (dqUtils, $document) {
+
+    // Combines both nq-drag-enter &amp; nq-drag-leave &amp; nq-drag-over
+
+    return function ($scope, $element, $attrs) {
+
+      // Tracking already set on the element?
+
+      if ($element.data(&#039;dqDragTrack&#039;) !== true) {
+
+        var trackingEnabled = false; // Toggled on drag-begin if the area name does not match the target
+        var inbound = false; // Toggle to indicate if the dragging is in or outbound element
+        var element = $element[0];
+        var dropEffect = &#039;none&#039;; // Drop effect used in the dragover event
+        var doingLeaveDoubleCheck = false; // Toggle that indicates the body has a dragover event to do.
+
+        var $body = $document.find(&#039;body&#039;);
+
+        function dragLeaveDoubleCheck($e) {
+          var e = dqUtils.getEvent($e);
+
+          // Check if the drag over element is a child of the this element
+
+          var target = e.target || $e.target;
+
+          if (target !== element) {
+
+            // TODO: we&#039;re not really checking if the target element is visually within the $element.
+
+            if (!element.contains(target)) {
+
+              // Drag over element is out of bounds
+
+              dragLeaveForSure(true);
+            }
+          }
+
+          // We&#039;re done with the expensive body call
+
+          $body.off(&#039;dragover&#039;, dragLeaveDoubleCheck);
+
+          // Notify the local element event callback there&#039;s no event listener on the body and the next event
+          // can safely be cancelled.
+
+          doingLeaveDoubleCheck = false;
+
+          e.dataTransfer.dropEffect = dropEffect;
+
+          // Always cancel the dragover -- otherwise the dropEffect is not used.
+
+          return dqUtils.stopEvent($e);
+        }
+
+        function dragLeaveForSure(apply) {
+          inbound = false;
+          var expression = $attrs.dqDragLeave;
+          if (expression) {
+            if (apply) {
+              $scope.$apply(function () {
+                $scope.$eval(expression);
+              });
+            } else {
+              $scope.$eval(expression);
+            }
+          }
+        }
+
+        $scope.$on(&#039;$destroy&#039;, function () {
+          // Just to be sure
+          $body.off(&#039;dragover&#039;, dragLeaveDoubleCheck);
+        });
+
+        $scope.$on(&#039;dqDragBegin&#039;, function () {
+          // Check if we should track drag movements
+          trackingEnabled = dqUtils.isAreaMatch($scope);
+        });
+
+        $scope.$on(&#039;dqDragEnd&#039;, function () {
+          if (trackingEnabled) {
+            // Gief cake
+            dragLeaveForSure(false);
+          }
+        });
+
+        $element.on(&#039;dragenter&#039;, function (e) {
+          if (trackingEnabled &amp;&amp; inbound === false) {
+            inbound = true;
+            var expression = $attrs.dqDragEnter;
+            if (expression) {
+              $scope.$apply(function () {
+                $scope.$eval(expression);
+              });
+            }
+          }
+        });
+
+        $element.on(&#039;dragleave&#039;, function () {
+          if (trackingEnabled &amp;&amp; inbound === true) {
+
+            // dragleave is a lie -- hovering child elements will cause this event to trigger also.
+            // We fake the cake by tracking the drag ourself.
+
+            // Notify the &quot;real&quot; dragover event that he has to play nice with the body and not to
+            // cancel the event chain.
+
+            doingLeaveDoubleCheck = true;
+            $body.on(&#039;dragover&#039;, dragLeaveDoubleCheck);
+          }
+        });
+
+        //noinspection FunctionWithInconsistentReturnsJS
+        $element.on(&#039;dragover&#039;, function ($e) {
+
+          if (trackingEnabled) {
+
+            var e = dqUtils.getEvent($e);
+
+            var expression = $attrs.dqDragOver;
+            var result;
+
+            if (expression) {
+              $scope.$apply(function () {
+                result = $scope.$eval(expression);
+              });
+            }
+
+            // The evaluated expression can indicate to cancel the drop
+
+            dropEffect = result === false ? &#039;none&#039; : &#039;copy&#039;;
+
+            if (!doingLeaveDoubleCheck) {
+
+              // There&#039;s no dragover queued on the body.
+              // The event needs to be terminated here else the dropEffect will
+              // not be applied (and dropping is not allowed).
+
+              e.dataTransfer.dropEffect = dropEffect;
+              return dqUtils.stopEvent($e);
+            }
+          }
+        });
+
+        //noinspection FunctionWithInconsistentReturnsJS
+        $element.on(&#039;drop&#039;, function($e) {
+
+          var e = dqUtils.getEvent($e);
+
+          if(trackingEnabled) {
+            var expression = $attrs.dqDrop;
+
+            if(expression) {
+              $scope.$apply(expression);
+            }
+          }
+
+          return dqUtils.stopEvent($e);
+        });
+
+        // Ensure that we only do all this magic stuff on this element for one time only.
+
+        $element.data(&#039;dqDragTrack&#039;, true);
+      }
+    };
+
+  });</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

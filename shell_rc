@@ -1,0 +1,2 @@
+alias plato='node_modules/plato/bin/plato -r -d client-analysis -t "Form Gen" -x test.js ./src/angular-form-gen ./src/app'
+alias test='node_modules/karma/bin/karma start'

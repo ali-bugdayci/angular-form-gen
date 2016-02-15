@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src/angular-form-gen/angular-form-gen.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src/angular-form-gen/angular-form-gen.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.19</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">292</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">36.73</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.91</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">var fg = angular.module(&#039;fg&#039;, [&#039;dq&#039;]);
+
+/**
+ * Constructor for form-gen Field types.
+ * @param {string} type         Indicates the type of field
+ * @param {object} properties   [optional] Initial property values
+ */
+fg.constant(&#039;FgField&#039;, function FgField(type, properties) {
+    this.name = this.type = type;
+
+    if (properties) {
+      angular.extend(this, properties);
+    }
+
+    this.displayName = this.displayName || this.type.charAt(0).toUpperCase() + this.type.substring(1);
+  }
+);
+
+fg.config(function ($provide) {
+
+  $provide.provider(&#039;fgConfig&#039;, function () {
+
+    var config = {
+      enableDebugInfo: true,
+      validation: {
+        messages: {},
+        patterns: {}
+      },
+      fields: {
+        templates: [],
+        categories: {},
+        renderInfo: {}
+      }
+    };
+
+    var templates = config.fields.templates;
+
+    function indexOfTemplate(type) {
+      var idx = templates.length;
+
+      while (idx--) {
+        if (templates[idx].type === type) {
+          break;
+        }
+      }
+
+      return idx;
+    }
+
+    return {
+      debug: function (value) {
+        config.enableDebugInfo = value;
+      },
+      fields: {
+        add: function (objectTemplate, categories, templateUrl, propertiesTemplateUrl) {
+
+          if (!objectTemplate || !objectTemplate.type || !categories || !categories.length) {
+            throw new Error(&#039;Need a valid objectTemplate and at least one category&#039;);
+          }
+
+          var idx = indexOfTemplate(objectTemplate.type);
+
+          if (idx !== -1) {
+            templates[idx] = objectTemplate;
+          } else {
+            templates.push(objectTemplate);
+          }
+
+          this.category(objectTemplate.type, categories);
+          this.renderInfo(objectTemplate.type, templateUrl, propertiesTemplateUrl);
+        },
+        remove: function (type) {
+          var idx = indexOfTemplate(type);
+
+          if (idx !== -1) {
+            templates.splice(idx, 1);
+          }
+
+          this.category(type);
+          this.renderInfo(type);
+        },
+        get: function(type) {
+          var i = templates.length;
+          while(i--) {
+            var t = templates[i];
+            if(t.type === type) {
+              return t;
+            }
+          }
+        },
+        renderInfo: function (fieldType, templateUrl, propertiesTemplateUrl) {
+          config.fields.renderInfo[fieldType] = {
+            templateUrl: templateUrl,
+            propertiesTemplateUrl: propertiesTemplateUrl
+          };
+        },
+        category: function (fieldType, categories) {
+          if (!angular.isArray(categories)) {
+            categories = [categories];
+          }
+
+          angular.forEach(config.fields.categories, function (category) {
+            delete category[fieldType];
+          });
+
+          angular.forEach(categories, function (category) {
+            if (config.fields.categories[category] === undefined) {
+              config.fields.categories[category] = {};
+            }
+
+            config.fields.categories[category][fieldType] = true;
+          });
+        }
+      },
+      validation: {
+        message: function (typeOrObject, message) {
+
+          var messages = config.validation.messages;
+
+          if (angular.isString(typeOrObject)) {
+
+            if (!message) {
+              throw new Error(&#039;No message specified for &#039; + typeOrObject);
+            }
+
+            messages[typeOrObject] = message;
+          } else {
+            angular.extend(messages, typeOrObject);
+          }
+        },
+        pattern: function (nameOrObject, pattern) {
+
+          if (angular.isString(nameOrObject)) {
+            config.validation.patterns[nameOrObject] = pattern;
+          } else {
+            angular.extend(config.validation.patterns, nameOrObject);
+          }
+        }
+      },
+      $get: function () {
+        return config;
+      }
+    };
+  });
+
+});
+
+fg.config(function (fgConfigProvider, FgField) {
+
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Messages
+  // - - - - - - - - - - - - - - - - - - - - - -
+
+  fgConfigProvider.validation.message({
+    required: &#039;A value is required for this field.&#039;,
+    minlength: &#039;The value does not match the minimum length{{ field.schema &amp;&amp; (&quot; of &quot; + field.schema.validation.minlength + &quot; characters&quot; || &quot;&quot;)}}.&#039;,
+    maxlength: &#039;The value exceeds the maximum length{{ field.schema &amp;&amp; (&quot; of &quot; + field.schema.validation.maxlength + &quot; characters&quot; || &quot;&quot;)}}.&#039;,
+    pattern: &#039;The value &quot;{{ field.state.$viewValue }}&quot; does not match the required format.&#039;,
+    email: &#039;The value &quot;{{ field.state.$viewValue }}&quot; is not a valid email address.&#039;,
+    unique: &#039;The value &quot;{{ field.state.$viewValue }}&quot; is already in use.&#039;,
+    number: &#039;The value &quot;{{ field.state.$viewValue }}&quot; is not a number.&#039;,
+    min: &#039;The value {{ field.schema &amp;&amp; (&quot;should be at least &quot; + field.schema.validation.min) || field.state.$viewValue + &quot; is too low&quot; }}&#039;,
+    max: &#039;The value {{ field.schema &amp;&amp; (&quot;should be less than &quot; + field.schema.validation.max) || field.state.$viewValue + &quot; is too high&quot; }}&#039;,
+    minoptions: &#039;At least {{ field.schema.validation.minoptions }} option(s) should be selected.&#039;,
+    maxoptions: &#039;No more than {{ field.schema.validation.maxoptions }} option(s) should be selected.&#039;
+  });
+
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Fields
+  // - - - - - - - - - - - - - - - - - - - - - -
+
+  var categories = {
+    &#039;Text input fields&#039;: [
+      new FgField(&#039;text&#039;, {
+        displayName: &#039;Textbox&#039;
+      }),
+      new FgField(&#039;email&#039;),
+      new FgField(&#039;number&#039;, {
+        validation: { maxlength: 15 /* to prevent &gt; Number.MAX_VALUE */ }
+      }),
+      new FgField(&#039;password&#039;),
+      new FgField(&#039;textarea&#039;),
+      new FgField(&#039;date&#039;)
+    ],
+    &#039;Checkbox fields&#039;: [
+      new FgField(&#039;checkbox&#039;, { nolabel: true }),
+      new FgField(&#039;checkboxlist&#039;, {
+        displayName: &#039;Checkbox List&#039;,
+        options: [
+          {
+            value: &#039;1&#039;,
+            text: &#039;Option 1&#039;
+          },
+          {
+            value: &#039;2&#039;,
+            text: &#039;Option 2&#039;
+          },
+          {
+            value: &#039;3&#039;,
+            text: &#039;Option 3&#039;
+          }
+        ],
+        value: {
+          &#039;1&#039;: true,
+          &#039;2&#039;: true
+        }
+      })
+    ],
+    &#039;Select input fields&#039;: [
+      new FgField(&#039;radiobuttonlist&#039;, {
+        displayName: &#039;Radiobutton List&#039;,
+        options: [
+          {
+            value: &#039;1&#039;,
+            text: &#039;Option 1&#039;
+          },
+          {
+            value: &#039;2&#039;,
+            text: &#039;Option 2&#039;
+          },
+          {
+            value: &#039;3&#039;,
+            text: &#039;Option 3&#039;
+          }
+        ],
+        value: &#039;1&#039;
+      }),
+      new FgField(&#039;selectlist&#039;, {
+        displayName: &#039;Select List&#039;,
+        options: [
+          {
+            value: &#039;&#039;,
+            text: &#039;Select an option&#039;
+          },
+          {
+            value: &#039;1&#039;,
+            text: &#039;Option 1&#039;
+          },
+          {
+            value: &#039;2&#039;,
+            text: &#039;Option 2&#039;
+          },
+          {
+            value: &#039;3&#039;,
+            text: &#039;Option 3&#039;
+          }
+        ],
+        value: &#039;&#039;
+      }) // ,
+      // new FgField(&#039;dropdownlist&#039;, {
+      //   options: [{
+      //     value: &#039;1&#039;,
+      //     text: &#039;Option 1&#039;
+      //   }, {
+      //     value: &#039;2&#039;,
+      //     text: &#039;Option 2&#039;
+      //   }, {
+      //     value: &#039;3&#039;,
+      //     text: &#039;Option 3&#039;
+      //   }],
+      //   value: &#039;1&#039;
+      // })
+    ]
+  };
+
+
+  angular.forEach(categories, function (fields, category) {
+    angular.forEach(fields, function (field) {
+      fgConfigProvider.fields.add(field, category /*, templateUrl, propertiesTemplateUrl */);
+    });
+  });
+
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Patterns
+  // - - - - - - - - - - - - - - - - - - - - - -
+
+  fgConfigProvider.validation.pattern({
+    &#039;None&#039;: undefined,
+    &#039;Url&#039;: &#039;/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/&#039;,
+    &#039;Domain&#039;: &#039;/^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$/&#039;,
+    &#039;IPv4 Address&#039;: &#039;/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/&#039;,
+    &#039;Email Address&#039;: &#039;/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/&#039;,
+    &#039;Integer&#039;: &#039;/^-{0,1}\\d+$/&#039;,
+    &#039;Positive Integers&#039;: &#039;/^\\d+$/&#039;,
+    &#039;Negative Integers&#039;: &#039;/^-\\d+$/&#039;,
+    &#039;Number&#039;: &#039;/^-{0,1}\\d*\\.{0,1}\\d+$/&#039;,
+    &#039;Positive Number&#039;: &#039;/^\\d*\\.{0,1}\\d+$/&#039;,
+    &#039;Negative Number&#039;: &#039;/^-\\d*\\.{0,1}\\d+$/&#039;,
+    &#039;Year (1920-2099)&#039;: &#039;/^(19|20)[\\d]{2,2}$/&#039;,
+    &#039;Password&#039;: &#039;/(?=.*\\d)(?=.*[!@#$%^&amp;*\\-=()|?.\&quot;\&#039;;:]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$/&#039;
+  });
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

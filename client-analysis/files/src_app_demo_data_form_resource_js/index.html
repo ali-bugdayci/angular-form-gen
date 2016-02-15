@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src/app/demo/data/form-resource.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src/app/demo/data/form-resource.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">39.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1013</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">81.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">6.16</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">app.factory(&#039;Form&#039;, function (fakeHttpResolve, formData) {
+
+  var idCounter = formData.length;
+
+  sortForms();
+
+  function sortForms() {
+    formData.sort(function (x, y) {
+      return y.id - x.id;
+    });
+  }
+
+  function query(params) {
+    return fakeHttpResolve(formData);
+  }
+
+  function get(params) {
+    var form = app.utils.singleOrDefault(formData, function (x) {
+      return x.id == params.id;
+    });
+
+    if (!form) {
+      throw new Error(&#039;Form not found&#039;);
+    }
+
+    return fakeHttpResolve(form);
+  }
+
+  function remove(params) {
+    var idx = app.utils.indexOfMatch(formData, function (x) {
+      return x.id === params.id;
+    });
+
+    if (idx !== -1) {
+      formData.splice(idx, 1);
+      sortForms();
+      return fakeHttpResolve();
+    } else {
+      throw new Error(&#039;Form not found&#039;);
+    }
+  }
+
+  function save(params) {
+
+    var idx = app.utils.indexOfMatch(formData, function (x) {
+      return x.id === params.id;
+    });
+
+    if (idx !== -1) {
+      formData.splice(idx, 1, params);
+    } else {
+      params.id = ++idCounter;
+      formData.push(params);
+    }
+
+    sortForms();
+
+    return fakeHttpResolve(params);
+  }
+
+  return {
+    query: query,
+    get: get,
+    remove: remove,
+    save: save
+  };
+
+});
+
+
+app.factory(&#039;formData&#039;, function () {
+  var forms = [
+    {
+      &quot;schema&quot;: {
+        &quot;name&quot;: &quot;All Fields&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2200&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2198&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2196&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field553&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;email&quot;,
+            &quot;name&quot;: &quot;field555&quot;,
+            &quot;displayName&quot;: &quot;Email&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;name&quot;: &quot;field557&quot;,
+            &quot;validation&quot;: {
+              &quot;maxlength&quot;: 15,
+              &quot;messages&quot;: {}
+            },
+            &quot;displayName&quot;: &quot;Number&quot;
+      },
+          {
+            &quot;type&quot;: &quot;password&quot;,
+            &quot;name&quot;: &quot;field559&quot;,
+            &quot;displayName&quot;: &quot;Password&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;textarea&quot;,
+            &quot;name&quot;: &quot;field561&quot;,
+            &quot;displayName&quot;: &quot;Textarea&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;checkbox&quot;,
+            &quot;name&quot;: &quot;field7781&quot;,
+            &quot;nolabel&quot;: true,
+            &quot;displayName&quot;: &quot;Checkbox&quot;
+      },
+          {
+            &quot;type&quot;: &quot;checkboxlist&quot;,
+            &quot;name&quot;: &quot;field7783&quot;,
+            &quot;displayName&quot;: &quot;Checkbox List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+          },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+          },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+          }
+        ],
+            &quot;value&quot;: {
+              &quot;1&quot;: true,
+              &quot;2&quot;: true
+            },
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;radiobuttonlist&quot;,
+            &quot;name&quot;: &quot;field7787&quot;,
+            &quot;displayName&quot;: &quot;Radiobutton List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+          },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+          },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+          }
+        ],
+            &quot;value&quot;: &quot;1&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;selectlist&quot;,
+            &quot;name&quot;: &quot;field7789&quot;,
+            &quot;displayName&quot;: &quot;Select List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+          },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+          },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+          }
+        ],
+            &quot;value&quot;: &quot;1&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2202&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2204&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2206&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2208&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2210&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2212&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2214&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2216&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2218&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2220&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2222&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2224&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2226&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2228&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2230&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2232&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2234&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2236&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2238&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2240&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2242&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2244&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2246&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2248&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2250&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2252&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2254&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2256&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2258&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2260&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2262&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2264&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2266&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2268&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2270&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2272&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2274&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2276&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2278&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2280&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2282&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2284&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2286&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2288&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2290&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2292&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2294&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2296&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field2298&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+      }
+    ]
+      },
+      &quot;name&quot;: &quot;Large Form&quot;,
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;description&quot;: &quot;Beserk form&quot;
+},
+    
+    ///////////////////////////////////////////////////////////////////////////////
+
+    {
+      &quot;name&quot;: &quot;Required option fields&quot;,
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;description&quot;: &quot;An example schema containing required multiple choice option fields.&quot;,
+      &quot;schema&quot;: {
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;checkboxlist&quot;,
+            &quot;name&quot;: &quot;checkboxes&quot;,
+            &quot;displayName&quot;: &quot;Checkboxes&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              },
+              {
+                &quot;value&quot;: &quot;4&quot;,
+                &quot;text&quot;: &quot;Option 4&quot;
+              },
+              {
+                &quot;value&quot;: &quot;5&quot;,
+                &quot;text&quot;: &quot;Option 5&quot;
+              }
+            ],
+            &quot;value&quot;: {
+              &quot;1&quot;: false,
+              &quot;2&quot;: false
+            },
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true,
+              &quot;minoptions&quot;: 2,
+              &quot;maxoptions&quot;: 3
+            }
+          },
+          {
+            &quot;type&quot;: &quot;radiobuttonlist&quot;,
+            &quot;name&quot;: &quot;radiobuttons&quot;,
+            &quot;displayName&quot;: &quot;Radiobuttons&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              }
+            ],
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true
+            }
+          },
+          {
+            &quot;type&quot;: &quot;selectlist&quot;,
+            &quot;name&quot;: &quot;select&quot;,
+            &quot;displayName&quot;: &quot;Select&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;&quot;,
+                &quot;text&quot;: &quot;No option selected&quot;
+              },
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              }
+            ],
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true
+            },
+            value: &quot;&quot;
+          }
+        ]
+      }
+    },
+    {
+      &quot;schema&quot;: {
+        &quot;name&quot;: &quot;All Fields&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field553&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;email&quot;,
+            &quot;name&quot;: &quot;field555&quot;,
+            &quot;displayName&quot;: &quot;Email&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;name&quot;: &quot;field557&quot;,
+            &quot;validation&quot;: {
+              &quot;maxlength&quot;: 15,
+              &quot;messages&quot;: {}
+            },
+            &quot;displayName&quot;: &quot;Number&quot;
+          },
+          {
+            &quot;type&quot;: &quot;password&quot;,
+            &quot;name&quot;: &quot;field559&quot;,
+            &quot;displayName&quot;: &quot;Password&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;textarea&quot;,
+            &quot;name&quot;: &quot;field561&quot;,
+            &quot;displayName&quot;: &quot;Textarea&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;checkbox&quot;,
+            &quot;name&quot;: &quot;field7781&quot;,
+            &quot;nolabel&quot;: true,
+            &quot;displayName&quot;: &quot;Checkbox&quot;
+          },
+          {
+            &quot;type&quot;: &quot;checkboxlist&quot;,
+            &quot;name&quot;: &quot;field7783&quot;,
+            &quot;displayName&quot;: &quot;Checkbox List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              }
+            ],
+            &quot;value&quot;: {
+              &quot;1&quot;: true,
+              &quot;2&quot;: true
+            }
+          },
+          {
+            &quot;type&quot;: &quot;radiobuttonlist&quot;,
+            &quot;name&quot;: &quot;field7787&quot;,
+            &quot;displayName&quot;: &quot;Radiobutton List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              }
+            ],
+            &quot;value&quot;: &quot;1&quot;
+          },
+          {
+            &quot;type&quot;: &quot;selectlist&quot;,
+            &quot;name&quot;: &quot;field7789&quot;,
+            &quot;displayName&quot;: &quot;Select List&quot;,
+            &quot;options&quot;: [
+              {
+                &quot;value&quot;: &quot;1&quot;,
+                &quot;text&quot;: &quot;Option 1&quot;
+              },
+              {
+                &quot;value&quot;: &quot;2&quot;,
+                &quot;text&quot;: &quot;Option 2&quot;
+              },
+              {
+                &quot;value&quot;: &quot;3&quot;,
+                &quot;text&quot;: &quot;Option 3&quot;
+              }
+            ],
+            &quot;value&quot;: &quot;1&quot;
+          }
+        ]
+      },
+      &quot;name&quot;: &quot;All Fields&quot;,
+      &quot;id&quot;: 3,
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;description&quot;: &quot;Contains all available field templates.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Textboxes&quot;,
+      &quot;schema&quot;: {
+        &quot;name&quot;: &quot;Textboxes&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;field553&quot;,
+            &quot;displayName&quot;: &quot;Textbox&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;email&quot;,
+            &quot;name&quot;: &quot;field555&quot;,
+            &quot;displayName&quot;: &quot;Email&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;name&quot;: &quot;field557&quot;,
+            &quot;validation&quot;: {
+              &quot;maxlength&quot;: 15,
+              &quot;messages&quot;: {}
+            },
+            &quot;displayName&quot;: &quot;Number&quot;
+          },
+          {
+            &quot;type&quot;: &quot;password&quot;,
+            &quot;name&quot;: &quot;field559&quot;,
+            &quot;displayName&quot;: &quot;Password&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          },
+          {
+            &quot;type&quot;: &quot;textarea&quot;,
+            &quot;name&quot;: &quot;field561&quot;,
+            &quot;displayName&quot;: &quot;Textarea&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            }
+          }
+        ]
+      },
+      &quot;id&quot;: 2,
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;description&quot;: &quot;Contains all textbox field templates.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Textbox Validation&quot;,
+      &quot;schema&quot;: {
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;pattern&quot;,
+            &quot;displayName&quot;: &quot;Pattern&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;pattern&quot;: &quot;/^test 123$/&quot;
+            },
+            &quot;placeholder&quot;: &quot;Should match \&quot;test 123\&quot;&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;required&quot;,
+            &quot;displayName&quot;: &quot;Required&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true
+            },
+            &quot;placeholder&quot;: &quot;Value is required&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;minLength&quot;,
+            &quot;displayName&quot;: &quot;Min-length&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {
+                &quot;minlength&quot;: &quot;&quot;
+              },
+              &quot;minlength&quot;: 5
+            },
+            &quot;placeholder&quot;: &quot;Minimum length of 5&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;maxLength&quot;,
+            &quot;displayName&quot;: &quot;Max-length&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;maxlength&quot;: 6
+            },
+            &quot;placeholder&quot;: &quot;Maximum length of 6&quot;
+          }
+        ],
+        &quot;name&quot;: &quot;Validation&quot;
+      },
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;description&quot;: &quot;Textbox validation options&quot;
+    },
+    {
+      &quot;name&quot;: &quot;People&quot;,
+      &quot;layout&quot;: &quot;form-horizontal&quot;,
+      &quot;schema&quot;: {
+        &quot;fields&quot;: [
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;firstName&quot;,
+            &quot;displayName&quot;: &quot;Name&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true
+            },
+            &quot;placeholder&quot;: &quot;Fill in your first name&quot;,
+            &quot;tooltip&quot;: &quot;Fill in your first name&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;lastName&quot;,
+            &quot;displayName&quot;: &quot;Last name&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {},
+              &quot;required&quot;: true
+            },
+            &quot;placeholder&quot;: &quot;Fill in your last name&quot;,
+            &quot;tooltip&quot;: &quot;Fill in your last name&quot;
+          },
+          {
+            &quot;type&quot;: &quot;email&quot;,
+            &quot;name&quot;: &quot;email&quot;,
+            &quot;displayName&quot;: &quot;Email&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            },
+            &quot;placeholder&quot;: &quot;Fill in your email address&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;country&quot;,
+            &quot;displayName&quot;: &quot;Country&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {}
+            },
+            &quot;placeholder&quot;: &quot;&quot;
+          },
+          {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;name&quot;: &quot;ipAddress&quot;,
+            &quot;displayName&quot;: &quot;IP Address&quot;,
+            &quot;validation&quot;: {
+              &quot;messages&quot;: {
+                &quot;pattern&quot;: &quot;The value \&quot;{{ field.state.$viewValue }}\&quot; is not a valid IP address.&quot;
+              },
+              &quot;pattern&quot;: &quot;/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/&quot;
+            },
+            &quot;value&quot;: &quot;&quot;
+          }
+        ]
+      },
+      &quot;description&quot;: &quot;An example form with some common person fields. It contains two required fields, email input and one field with a custom validation pattern.&quot;
+    }
+  ];
+
+  var i = forms.length;
+
+  while (i--) {
+    forms[i].id = i + 1;
+  }
+
+  return forms;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
